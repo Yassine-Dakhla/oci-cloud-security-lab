@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Explore ForgeSec website security checks for TLS, HTTP headers, DNS and basic website exposure." />
-  <title>Platform — ForgeSec</title>
+  <meta name="description" content="Run a ForgeSec website security check for HTTPS, TLS certificates, redirects and browser security headers." />
+  <title>Website Security Check — ForgeSec</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -21,7 +21,7 @@
       <div class="container">
         <span class="eyebrow">ForgeSec platform</span>
         <h1>Simple checks. Clear security decisions.</h1>
-        <p>ForgeSec is being built as a focused website-security platform for people who need useful answers without enterprise scanner complexity.</p>
+        <p>Run a lightweight external check of your website's HTTPS, certificate, redirect behavior and browser-facing security headers.</p>
       </div>
     </section>
 
@@ -30,45 +30,28 @@
         <div class="section-intro centered">
           <span class="eyebrow">Website security check</span>
           <h2>Start with what the internet can see.</h2>
-          <p>The live scanning backend is the next development milestone. This interface currently demonstrates the final report experience.</p>
+          <p>ForgeSec performs non-intrusive HTTP and TLS configuration checks and turns the results into clear remediation guidance.</p>
         </div>
 
         <div class="demo-shell">
-          <form class="scan-bar" data-scan-form data-mode="demo">
+          <form class="scan-bar" data-scan-form data-live-scan>
             <div class="scan-field"><span class="scan-icon">◎</span><input type="text" name="target" placeholder="example.com" aria-label="Website to check" autocomplete="off" /></div>
             <button class="button" type="submit">Check website</button>
           </form>
-          <p class="form-note">Demo mode · No network request is performed yet · Only scan assets you own or are authorized to assess.</p>
-
-          <div class="demo-results" data-demo-results>
-            <div class="demo-banner">Preview report for <strong data-target-name>example.com</strong>. These sample findings demonstrate the interface and are not real scan results.</div>
-            <div class="dashboard-head">
-              <div><small>Security overview</small><h3 data-target-name>example.com</h3></div>
-              <div class="score-ring"><strong>82</strong><span>/100</span></div>
-            </div>
-            <div class="summary-row">
-              <div><span class="status-dot good"></span><p><b>7</b> passed</p></div>
-              <div><span class="status-dot warn"></span><p><b>2</b> warnings</p></div>
-              <div><span class="status-dot bad"></span><p><b>1</b> issue</p></div>
-            </div>
-            <div class="finding-list">
-              <div class="finding"><span class="check good">✓</span><div><b>HTTPS certificate</b><small>Valid and trusted</small></div><span class="tag success">Pass</span></div>
-              <div class="finding"><span class="check good">✓</span><div><b>HTTP → HTTPS</b><small>Redirect configured</small></div><span class="tag success">Pass</span></div>
-              <div class="finding"><span class="check warn">!</span><div><b>Content Security Policy</b><small>Header not detected</small></div><span class="tag warning">Review</span></div>
-              <div class="finding"><span class="check bad">×</span><div><b>HSTS</b><small>Strict transport policy missing</small></div><span class="tag danger">Issue</span></div>
-            </div>
-          </div>
+          <p class="form-note">Live check · No account required · Domain names only · Only assess assets you own or are authorized to check.</p>
+          <div class="scan-message" data-scan-message hidden></div>
+          <div class="demo-results live-results" data-live-results aria-live="polite"></div>
         </div>
       </div>
     </section>
 
     <section class="section soft-section">
       <div class="container">
-        <div class="section-intro"><span class="eyebrow">Coverage</span><h2>Four focused security views.</h2><p>Each tool is designed to answer one practical question clearly.</p></div>
+        <div class="section-intro"><span class="eyebrow">Current coverage</span><h2>What the first scanner checks.</h2><p>ForgeSec v1 stays intentionally lightweight. It focuses on common external configuration signals rather than intrusive vulnerability testing.</p></div>
         <div class="tool-grid">
-          <article class="tool-card"><span class="tool-state">In development</span><h3>Website Security Check</h3><p>A combined overview of HTTPS, redirects, security headers and other externally visible configuration.</p></article>
-          <article class="tool-card"><span class="tool-state">Planned</span><h3>TLS Inspector</h3><p>Certificate validity, issuer, expiry, hostname coverage and transport-security context.</p></article>
-          <article class="tool-card"><span class="tool-state">Planned</span><h3>Header Analyzer</h3><p>Review browser security headers and translate missing controls into practical remediation guidance.</p></article>
+          <article class="tool-card"><span class="tool-state live-state">Live</span><h3>Website Security Check</h3><p>Combined score for HTTPS availability, trusted TLS, HTTP-to-HTTPS redirects and key security headers.</p></article>
+          <article class="tool-card"><span class="tool-state live-state">Live</span><h3>TLS Certificate Check</h3><p>Certificate trust, issuer, expiry, negotiated TLS version and cipher information.</p></article>
+          <article class="tool-card"><span class="tool-state live-state">Live</span><h3>Header Analyzer</h3><p>HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy and clickjacking protection.</p></article>
           <article class="tool-card"><span class="tool-state">Planned</span><h3>DNS Security</h3><p>Review useful DNS and email-security records including SPF, DMARC and CAA.</p></article>
           <article class="tool-card"><span class="tool-state">Roadmap</span><h3>Uptime Monitor</h3><p>Track website availability and response health over time with clear incident history.</p></article>
           <article class="tool-card"><span class="tool-state">Roadmap</span><h3>TLS Expiry Alerts</h3><p>Notify website owners before certificate problems turn into outages or browser warnings.</p></article>
@@ -76,8 +59,23 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="container split-section scanner-principles">
+        <div>
+          <span class="eyebrow">Designed for safe checks</span>
+          <h2>Useful visibility without turning ForgeSec into an attack proxy.</h2>
+          <p class="section-copy">The public scanner intentionally avoids exploit attempts, brute force, directory discovery and mass port scanning.</p>
+        </div>
+        <ul class="benefit-list">
+          <li><span>01</span><div><b>Private networks blocked</b><p>Targets resolving to localhost, private, link-local, reserved or other non-public addresses are rejected.</p></div></li>
+          <li><span>02</span><div><b>DNS result pinned</b><p>The outbound connection uses an already-validated public address to reduce DNS-rebinding and SSRF risk.</p></div></li>
+          <li><span>03</span><div><b>Rate limited</b><p>Basic per-client limits and short connection/read timeouts reduce abuse and resource exhaustion.</p></div></li>
+        </ul>
+      </div>
+    </section>
+
     <section class="cta-section">
-      <div class="container cta-card"><div><span class="eyebrow">Product roadmap</span><h2>One platform, built in small reliable steps.</h2><p>The next milestone is connecting this interface to a Python/FastAPI backend that performs real, safe website configuration checks.</p></div><a class="button large" href="about.html">How ForgeSec is being built</a></div>
+      <div class="container cta-card"><div><span class="eyebrow">Next platform milestone</span><h2>Turn one-off checks into continuous visibility.</h2><p>After the scanner is stable, ForgeSec can add DNS security checks, saved websites, scheduled monitoring, alerts and report history.</p></div><a class="button large" href="#scanner">Run another check</a></div>
     </section>
   </main>
 
@@ -88,7 +86,7 @@
       <div><b>Company</b><a href="about.html">About</a><a href="projects.html">Solutions</a><a href="writeups.html">Resources</a></div>
       <div><b>Resources</b><a href="writeups.html">Guides</a><a href="writeups.html">Checklists</a></div>
     </div>
-    <div class="container footer-bottom"><span>© 2026 ForgeSec</span><span>Security tooling in active development.</span></div>
+    <div class="container footer-bottom"><span>© 2026 ForgeSec</span><span>Lightweight external website security checks.</span></div>
   </footer>
   <script src="app.js"></script>
 </body>

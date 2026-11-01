@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ForgeSec security tools — website security checks, headers, TLS and DNS." />
+  <meta name="theme-color" content="#07110d" />
+  <title>Security Tools — ForgeSec</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a>
+    <nav class="desktop-nav"><a class="active" href="tools.html">Tools</a><a href="projects.html">Projects</a><a href="writeups.html">Writeups</a><a href="about.html">About</a></nav>
+    <a class="nav-cta" href="#website-scan">Run a scan</a>
+  </header>
+
+  <main>
+    <section class="page-hero wrap">
+      <div class="eyebrow"><span class="dot"></span> ForgeSec tools</div>
+      <h1>Useful security checks.<br><span class="accent">Clearer answers.</span></h1>
+      <p>These tools are being built one by one. The interface below is working as a local demo; the live scanner backend is the next engineering milestone.</p>
+      <div class="page-tabs"><a href="#website-scan">Website scan</a><a href="#headers">Headers</a><a href="#tls">TLS</a><a href="#dns">DNS</a></div>
+    </section>
+
+    <section class="tool-section wrap" id="website-scan">
+      <div class="section-heading"><span>01 / WEBSITE SECURITY SCAN</span><h2>Get a quick security posture preview.</h2><p>Enter a website to preview how ForgeSec will present HTTPS and security-header findings. For now this runs sample data locally in your browser and does not contact the target.</p></div>
+      <div class="tool-workspace">
+        <form class="scanner-panel" id="tool-scan-form">
+          <span class="project-tag">DEMO SCANNER</span>
+          <h2>Scan a website</h2>
+          <p>The live version will perform passive, owner-safe checks through a Python/FastAPI backend.</p>
+          <label class="field-label" for="tool-target">Website</label>
+          <div class="url-field"><span>https://</span><input id="tool-target" placeholder="example.com" autocomplete="off" required /></div>
+          <button class="button primary full-button" id="scan-button" type="submit">Run demo scan</button>
+          <p class="demo-warning">This version is a UI demo. It does not scan or send requests to the domain you enter.</p>
+          <div id="scan-status"></div>
+        </form>
+
+        <div class="results-panel">
+          <div id="results-empty" class="results-empty"><div><div class="empty-icon">⌁</div><strong>No report yet</strong><p>Enter a website to preview a ForgeSec result.</p></div></div>
+          <div id="scan-results" class="scan-results">
+            <div class="results-summary"><div><span class="preview-kicker">DEMO SECURITY REPORT</span><h2 id="result-target">example.com</h2></div><div><span id="result-score" class="results-score">82</span><span style="color:var(--dim)">/100</span></div></div>
+            <div id="result-list" class="results-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section wrap" id="headers">
+      <div class="section-heading"><span>02 / HEADER ANALYZER</span><h2>See which browser security policies are missing.</h2><p>This will become the first live ForgeSec module because it is focused, understandable and useful for website owners.</p></div>
+      <div class="tool-roadmap-grid">
+        <article class="content-card"><span class="number">CHECK</span><h3>Strict-Transport-Security</h3><p>Detect whether browsers are instructed to prefer HTTPS for future visits.</p></article>
+        <article class="content-card"><span class="number">CHECK</span><h3>Content-Security-Policy</h3><p>Surface whether a CSP is present and explain what problem it is designed to reduce.</p></article>
+        <article class="content-card"><span class="number">CHECK</span><h3>X-Content-Type-Options</h3><p>Check whether MIME type sniffing is explicitly disabled.</p></article>
+        <article class="content-card"><span class="number">CHECK</span><h3>Referrer-Policy</h3><p>Review whether the site deliberately limits referrer information sent to other origins.</p></article>
+      </div>
+    </section>
+
+    <section class="tool-section wrap" id="tls">
+      <div class="section-heading"><span>03 / TLS INSPECTOR</span><h2>Certificate health without the noise.</h2><p>Planned checks include validity, expiration, hostname coverage, issuer information and redirect behavior.</p></div>
+      <div class="tool-roadmap-grid">
+        <article class="content-card"><span class="number">PLANNED</span><h3>Certificate expiry</h3><p>Show exactly how long remains before a certificate expires and flag short remaining lifetimes.</p></article>
+        <article class="content-card"><span class="number">PLANNED</span><h3>Hostname match</h3><p>Confirm the certificate actually covers the hostname the visitor requested.</p></article>
+      </div>
+    </section>
+
+    <section class="tool-section wrap" id="dns">
+      <div class="section-heading"><span>04 / DNS INSPECTOR</span><h2>Make domain security easier to read.</h2><p>The DNS module will focus on useful records rather than becoming a giant raw DNS dump.</p></div>
+      <div class="tool-roadmap-grid">
+        <article class="content-card"><span class="number">PLANNED</span><h3>SPF & DMARC</h3><p>Surface basic email-authentication records and explain their role in spoofing protection.</p></article>
+        <article class="content-card"><span class="number">PLANNED</span><h3>CAA & nameservers</h3><p>Display certificate-authority authorization and nameserver configuration in a clean format.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>

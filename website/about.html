@@ -3,64 +3,68 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="About ForgeSec and the builder behind the project." />
-  <meta name="theme-color" content="#07110d" />
+  <meta name="description" content="About ForgeSec and its approach to clear, practical website security." />
   <title>About — ForgeSec</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="grid-bg" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a>
-    <nav class="desktop-nav"><a href="tools.html">Tools</a><a href="projects.html">Projects</a><a href="writeups.html">Writeups</a><a class="active" href="about.html">About</a></nav>
-    <a class="nav-cta" href="tools.html">Run a scan</a>
+    <div class="nav-shell">
+      <a class="brand" href="index.html"><span class="brand-symbol"><span></span></span><span>ForgeSec</span></a>
+      <nav class="desktop-nav"><a href="tools.html">Platform</a><a href="projects.html">Solutions</a><a href="writeups.html">Resources</a><a href="about.html">About</a></nav>
+      <div class="nav-actions"><a class="button small" href="tools.html#scanner">Run a free check</a></div>
+    </div>
   </header>
 
   <main>
-    <section class="page-hero wrap">
-      <div class="eyebrow"><span class="dot"></span> About ForgeSec</div>
-      <h1>A security project built<br><span class="accent">by learning in public.</span></h1>
-      <p>ForgeSec started as a cloud-security lab and is evolving into a small platform for understandable website security checks, monitoring and practical security research.</p>
-    </section>
-
-    <section class="section wrap about-grid">
-      <div>
-        <div class="about-card">
-          <span class="project-tag">THE BUILDER</span>
-          <h3>Yassine Dakhla</h3>
-          <p>I am a cybersecurity student focused on building practical skills across cloud security, Linux, networking, scripting and web security.</p>
-          <p>I use ForgeSec to turn the things I study into systems I can deploy, test, break, troubleshoot and explain.</p>
-          <div class="project-pills"><span>Cloud security</span><span>Linux</span><span>Networking</span><span>Python</span><span>Bash</span><span>PowerShell</span><span>Docker</span></div>
-          <div class="hero-actions"><a class="button primary" href="https://github.com/Yassine-Dakhla" target="_blank" rel="noreferrer">GitHub ↗</a><a class="button secondary" href="projects.html">View projects</a></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-heading"><span>THE FORGESEC JOURNEY</span><h2>From lab to product.</h2><p>The roadmap is intentionally incremental: every stage should teach something useful and leave behind something demonstrable.</p></div>
-        <div class="timeline">
-          <article><span>PHASE 01 · COMPLETE</span><h3>Build the secure cloud foundation</h3><p>OCI networking, Ubuntu hardening, layered firewalling, Docker isolation, Nginx and HTTPS.</p></article>
-          <article><span>PHASE 02 · CURRENT</span><h3>Turn the site into ForgeSec</h3><p>Create a real product identity, tool interfaces, case studies and security writeups.</p></article>
-          <article><span>PHASE 03 · NEXT</span><h3>Build the first live scanner API</h3><p>Use Python and FastAPI for passive website-security checks with structured JSON results.</p></article>
-          <article><span>PHASE 04</span><h3>Add history and monitoring</h3><p>Store checks, track changes over time and notify users about outages or certificate problems.</p></article>
-          <article><span>PHASE 05</span><h3>Explore a paid product</h3><p>Only after the free tools are useful: accounts, multiple sites, reports and monitoring plans.</p></article>
-        </div>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">About ForgeSec</span>
+        <h1>Make website security easier to understand and easier to act on.</h1>
+        <p>ForgeSec is being built around a simple idea: many website owners do not need more raw security output. They need clearer signals, better explanations and practical next steps.</p>
       </div>
     </section>
 
-    <section class="section section-contrast">
-      <div class="wrap split-feature">
-        <div class="section-heading"><span>PRINCIPLE</span><h2>No fake security theater.</h2><p>ForgeSec should not claim checks it has not performed, vulnerabilities it has not verified, or protections that are not actually configured.</p></div>
+    <section class="section">
+      <div class="container about-panel">
+        <div>
+          <span class="eyebrow">The approach</span>
+          <h2>Start narrow. Build trust. Expand carefully.</h2>
+          <p>ForgeSec begins with externally visible website configuration such as HTTPS, TLS, browser security headers and DNS. These checks are useful, understandable and provide a strong foundation for a broader monitoring platform.</p>
+          <p>The product will grow only when each layer is reliable enough to support the next one: basic checks first, then history, monitoring, alerts, reporting and team workflows.</p>
+        </div>
         <div class="principles">
-          <article><span>01</span><div><h3>Be explicit about demos</h3><p>Until a backend is connected, sample scan results are labeled as sample data.</p></div></article>
-          <article><span>02</span><div><h3>Minimize unnecessary exposure</h3><p>Services should be public only when they need to be public.</p></div></article>
-          <article><span>03</span><div><h3>Document mistakes</h3><p>Real troubleshooting often demonstrates more understanding than a perfectly clean setup guide.</p></div></article>
+          <article><h3>Clarity over noise</h3><p>Show fewer findings, explain them better and make priorities obvious.</p></article>
+          <article><h3>Evidence over marketing</h3><p>Do not invent customer logos, fake statistics or capabilities the product does not have yet.</p></article>
+          <article><h3>Security with boundaries</h3><p>Keep automated checks within a clearly defined, responsible scope and require authorization where appropriate.</p></article>
+          <article><h3>Useful before monetized</h3><p>Build something people return to before adding subscriptions, advertising or other revenue layers.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="final-cta wrap"><span class="eyebrow plain">NEXT MILESTONE</span><h2>Make the scanner<br><span>actually scan.</span></h2><p>The design is ready. Next comes the Python/FastAPI backend and the first live security-header checks.</p><a class="button primary large-button" href="tools.html">See the tool interface →</a></section>
+    <section class="section soft-section">
+      <div class="container">
+        <div class="section-intro"><span class="eyebrow">Roadmap</span><h2>How ForgeSec can grow.</h2><p>The product direction stays focused on one connected problem: understanding and monitoring website security posture.</p></div>
+        <div class="audience-grid">
+          <article><span>01</span><h3>Check</h3><p>Launch reliable one-time website configuration checks.</p></article>
+          <article><span>02</span><h3>Explain</h3><p>Turn each technical finding into clear remediation guidance.</p></article>
+          <article><span>03</span><h3>Monitor</h3><p>Track availability, certificate health and configuration changes over time.</p></article>
+          <article><span>04</span><h3>Report</h3><p>Build history, alerts and client-ready reporting for teams managing multiple sites.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section"><div class="container cta-card"><div><span class="eyebrow">See the product</span><h2>ForgeSec is being built in public, but the product stays the focus.</h2><p>Explore the current interface and the security checks planned for the first working release.</p></div><a class="button large" href="tools.html">Explore the platform</a></div></section>
   </main>
 
-  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div></footer>
+  <footer>
+    <div class="container footer-grid">
+      <div><a class="brand footer-brand" href="index.html"><span class="brand-symbol"><span></span></span><span>ForgeSec</span></a><p>Clear website security visibility for small teams.</p></div>
+      <div><b>Product</b><a href="tools.html">Platform</a><a href="tools.html">Website check</a></div>
+      <div><b>Company</b><a href="about.html">About</a><a href="projects.html">Solutions</a></div>
+      <div><b>Resources</b><a href="writeups.html">Guides</a><a href="writeups.html">Checklists</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 ForgeSec</span><span>Security tooling in active development.</span></div>
+  </footer>
 </body>
 </html>

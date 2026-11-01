@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ForgeSec security writeups — practical lessons from cloud, Linux and container security." />
+  <meta name="theme-color" content="#07110d" />
+  <title>Writeups — ForgeSec</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a>
+    <nav class="desktop-nav"><a href="tools.html">Tools</a><a href="projects.html">Projects</a><a class="active" href="writeups.html">Writeups</a><a href="about.html">About</a></nav>
+    <a class="nav-cta" href="tools.html">Run a scan</a>
+  </header>
+
+  <main>
+    <section class="page-hero wrap">
+      <div class="eyebrow"><span class="dot"></span> Research notes</div>
+      <h1>What I learned when<br><span class="accent">the obvious fix didn't work.</span></h1>
+      <p>These writeups focus on practical lessons from building ForgeSec infrastructure: what failed, what I inspected, and what the result taught me.</p>
+    </section>
+
+    <section class="section wrap">
+      <div class="article-list">
+        <a class="article-row" href="#oci-firewall"><span>Cloud Security</span><div><h3>Why port 80 stayed filtered after I opened it in OCI</h3><p>OCI Security Lists were correct, Nginx was listening, but the public service was still unreachable.</p></div><b>Read →</b></a>
+        <a class="article-row" href="#docker-isolation"><span>Containers</span><div><h3>Why I bound Docker to 127.0.0.1 instead of 0.0.0.0</h3><p>Using a reverse proxy as the public entry point instead of publishing the app directly.</p></div><b>Read →</b></a>
+        <a class="article-row" href="#ssh-hardening"><span>Linux</span><div><h3>Hardening SSH without locking myself out</h3><p>Changing authentication safely by validating first and testing a second session.</p></div><b>Read →</b></a>
+      </div>
+    </section>
+
+    <section class="case-study wrap" id="oci-firewall">
+      <aside class="case-meta"><span class="project-tag">WRITEUP 01</span><div><b>Topic</b><br>OCI + iptables</div><div><b>Problem</b><br>Port 80 filtered</div><div><b>Lesson</b><br>Firewall rule order</div></aside>
+      <article class="case-body">
+        <h2>Why opening port 80 in OCI wasn't enough.</h2>
+        <p>I had a host Nginx service listening on port 80. The OCI Security List allowed TCP/80. A local curl request worked. But an external Nmap scan still reported port 80 as filtered.</p>
+        <h3>The wrong assumption</h3>
+        <p>My first assumption was that the cloud firewall must still be blocking the request. That was incomplete because OCI was only one layer in the path.</p>
+        <h3>What I checked</h3>
+        <pre>sudo ss -tulpn
+sudo iptables -L INPUT -n --line-numbers
+sudo iptables -S INPUT</pre>
+        <p>The host had an explicit reject rule placed before the UFW-managed chains. So even though UFW allowed HTTP, packets never reached those rules.</p>
+        <h3>The important lesson</h3>
+        <p>Firewall tools are abstractions over ordered packet-filtering rules. A later allow rule cannot rescue traffic that an earlier rule has already rejected. Cloud security also means checking every control point in the request path, not just the provider console.</p>
+      </article>
+    </section>
+
+    <section class="case-study wrap" id="docker-isolation">
+      <aside class="case-meta"><span class="project-tag">WRITEUP 02</span><div><b>Topic</b><br>Docker exposure</div><div><b>Decision</b><br>Localhost binding</div><div><b>Goal</b><br>Reduce direct attack surface</div></aside>
+      <article class="case-body">
+        <h2>Why the container doesn't listen on the public interface.</h2>
+        <p>It would have been easy to launch the container with <code>-p 8080:80</code>. Instead, the service is published as <code>-p 127.0.0.1:8080:80</code>.</p>
+        <h3>The difference</h3>
+        <p>A public bind makes Docker's published port reachable on the host's external interfaces if the surrounding firewall permits it. A localhost bind limits the published socket to the host itself.</p>
+        <h3>The request path</h3>
+        <pre>Internet → Nginx :443 → 127.0.0.1:8080 → Docker</pre>
+        <p>This gives the host reverse proxy a clear role as the intentional public web entry point, while the application remains behind it.</p>
+      </article>
+    </section>
+
+    <section class="case-study wrap" id="ssh-hardening">
+      <aside class="case-meta"><span class="project-tag">WRITEUP 03</span><div><b>Topic</b><br>SSH hardening</div><div><b>Risk</b><br>Remote lockout</div><div><b>Approach</b><br>Validate before reload</div></aside>
+      <article class="case-body">
+        <h2>Hardening SSH without turning security into an outage.</h2>
+        <p>The target configuration disabled password login and direct root login while preserving public-key authentication.</p>
+        <h3>The safe workflow</h3>
+        <pre>sudo sshd -t
+sudo systemctl reload ssh
+# keep the current session open
+# test a second SSH session before disconnecting</pre>
+        <p>Running <code>sshd -t</code> before reload checks the configuration syntax. Keeping the original session open provides a recovery path while testing the new policy from a second connection.</p>
+        <h3>Effective policy</h3>
+        <pre>PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes</pre>
+        <p>The lesson was simple: hardening is not only about stronger settings. It is also about applying changes in a way that preserves operational access.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div></footer>
+</body>
+</html>

@@ -67,6 +67,58 @@ The intended external scan is:
 
 Port `8080` is deliberately not exposed to the internet. It is reachable only from localhost on the VM.
 
+## Project evidence
+
+The screenshots below are sanitized before publication. Public IP addresses and OCI identifiers that were not needed for the demonstration were redacted.
+
+### OCI networking
+
+Public subnet configuration inside the `cyberlab-vcn` VCN:
+
+![OCI subnet configuration](screenshots/oci-cloud-security-sanitized-screenshots/01-oci-subnet-redacted.png)
+
+### Compute instance
+
+The cloud VM running the lab environment:
+
+![OCI compute instance](screenshots/oci-cloud-security-sanitized-screenshots/02-oci-instance-redacted.png)
+
+### Cloud firewall
+
+OCI Security List rules controlling the public network edge:
+
+![OCI Security List](screenshots/oci-cloud-security-sanitized-screenshots/03-oci-security-list-redacted.png)
+
+### Host firewall
+
+Ubuntu host-level `iptables` filtering provides another security layer behind the OCI firewall:
+
+![Host iptables rules](screenshots/oci-cloud-security-sanitized-screenshots/04-host-iptables.png)
+
+### SSH protection with Fail2Ban
+
+Fail2Ban monitors the SSH service and can temporarily ban sources that repeatedly fail authentication:
+
+![Fail2Ban SSH jail](screenshots/oci-cloud-security-sanitized-screenshots/05-fail2ban-sshd.png)
+
+### Docker isolation
+
+The web container publishes its service only on `127.0.0.1:8080`, so the container port is not directly exposed to the internet:
+
+![Docker localhost binding](screenshots/oci-cloud-security-sanitized-screenshots/06-docker-private-port.png)
+
+### TLS certificate
+
+Certbot manages the trusted Let's Encrypt certificate used by Nginx. Sensitive certificate path details tied to the public IP were redacted from the screenshot:
+
+![Certbot certificate](screenshots/oci-cloud-security-sanitized-screenshots/08-certbot-certificate-redacted.png)
+
+### Final HTTPS service
+
+The lab website is served through the host Nginx reverse proxy over HTTPS:
+
+![OCI Cloud Security Lab over HTTPS](screenshots/oci-cloud-security-sanitized-screenshots/09-website-https-redacted.png)
+
 ## Repository structure
 
 ```text
@@ -90,7 +142,8 @@ Port `8080` is deliberately not exposed to the internet. It is reachable only fr
 │   ├── fail2ban-jail.local.example
 │   └── iptables-rules.example
 └── screenshots/
-    └── README.md
+    ├── README.md
+    └── oci-cloud-security-sanitized-screenshots/
 ```
 
 ## What I learned
@@ -119,6 +172,7 @@ This repository intentionally does **not** contain private SSH keys, Let's Encry
 - [x] Dockerized web application
 - [x] Nginx reverse proxy
 - [x] HTTPS with Let's Encrypt
+- [x] Sanitized portfolio evidence/screenshots
 - [ ] Centralized logging / monitoring dashboard
 - [ ] OCI monitoring and alerting
 - [ ] Additional private-subnet service

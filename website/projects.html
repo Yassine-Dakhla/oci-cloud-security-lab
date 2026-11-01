@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ForgeSec projects — practical cloud and cybersecurity builds." />
+  <meta name="theme-color" content="#07110d" />
+  <title>Projects — ForgeSec</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a>
+    <nav class="desktop-nav"><a href="tools.html">Tools</a><a class="active" href="projects.html">Projects</a><a href="writeups.html">Writeups</a><a href="about.html">About</a></nav>
+    <a class="nav-cta" href="tools.html">Run a scan</a>
+  </header>
+
+  <main>
+    <section class="page-hero wrap">
+      <div class="eyebrow"><span class="dot"></span> Practical builds</div>
+      <h1>Projects that prove<br><span class="accent">how the security works.</span></h1>
+      <p>ForgeSec projects document the architecture, hardening decisions, mistakes, verification steps and lessons learned — not just the final screenshot.</p>
+    </section>
+
+    <section class="section wrap">
+      <div class="project-grid">
+        <a class="content-card" href="#oci-cloud-lab"><span class="number">FEATURED / 01</span><h3>OCI Cloud Security Lab</h3><p>Internet-facing Ubuntu infrastructure with cloud networking, layered firewalling, Docker isolation, Nginx and trusted TLS.</p><span class="card-link">Read case study →</span></a>
+        <article class="content-card"><span class="number">NEXT / 02</span><h3>ForgeSec Scanner API</h3><p>A planned FastAPI backend that will power passive website-security checks and structured remediation results.</p><span class="card-link">In development</span></article>
+      </div>
+    </section>
+
+    <section class="case-study wrap" id="oci-cloud-lab">
+      <aside class="case-meta">
+        <span class="project-tag">OCI CLOUD SECURITY LAB</span>
+        <div><b>Status</b><br>Running</div>
+        <div><b>Platform</b><br>Oracle Cloud Infrastructure</div>
+        <div><b>OS</b><br>Ubuntu 24.04 ARM64</div>
+        <div><b>Compute</b><br>Ampere A1 Flex</div>
+        <div><b>Application</b><br>Docker + Nginx</div>
+        <div><b>Security</b><br>SSH · iptables · Fail2Ban · TLS</div>
+      </aside>
+      <article class="case-body">
+        <h2>Building an internet-facing service with defense in depth.</h2>
+        <p>The goal was not simply to make a webpage load. The project was built to understand what happens between an internet request and the application, then reduce unnecessary exposure at every layer.</p>
+
+        <h3>Architecture</h3>
+        <pre>Internet
+   │
+   ▼
+OCI Security List
+   │
+   ▼
+Ubuntu iptables
+   │
+   ├── TCP 22  → OpenSSH
+   ├── TCP 80  → HTTP redirect / ACME
+   └── TCP 443 → Host Nginx
+                    │
+                    ▼
+              127.0.0.1:8080
+                    │
+                    ▼
+               Docker Nginx</pre>
+
+        <h3>Cloud networking</h3>
+        <p>The environment uses a dedicated VCN with a <code>10.0.0.0/16</code> address range, a public subnet for the current server and a private subnet reserved for future internal services. OCI Security Lists form the first ingress control layer.</p>
+
+        <h3>Linux hardening</h3>
+        <ul>
+          <li>SSH public-key authentication enabled.</li>
+          <li>Password authentication disabled.</li>
+          <li>Direct root SSH login disabled.</li>
+          <li>Unused <code>rpcbind</code> service disabled after confirming no NFS dependency.</li>
+          <li>Automatic security updates enabled.</li>
+          <li>Fail2Ban SSH jail enabled.</li>
+        </ul>
+
+        <h3>Container isolation</h3>
+        <p>The Docker web container is published only as <code>127.0.0.1:8080:80</code>. This means the application port is not intentionally reachable directly from the internet. Public traffic goes through the host Nginx reverse proxy instead.</p>
+
+        <h3>TLS</h3>
+        <p>HTTPS is terminated by host Nginx using a Let's Encrypt certificate. Certificate renewal was tested successfully with Certbot's dry-run workflow before being documented as complete.</p>
+
+        <h3>External validation</h3>
+        <pre>22/tcp    open       ssh
+80/tcp    open       http
+443/tcp   open       https
+8080/tcp  filtered   http-proxy</pre>
+        <p>The important result is that the intended public services are reachable while the Docker application port remains filtered externally.</p>
+
+        <h3>What made this project useful</h3>
+        <p>The strongest lesson came from troubleshooting. Port 80 remained filtered even after it was allowed in OCI and Nginx was listening locally. Inspecting the host rules revealed an OCI Ubuntu iptables reject rule taking effect before UFW-managed chains. The fix required understanding rule order rather than simply adding another firewall rule.</p>
+
+        <div class="hero-actions"><a class="button primary" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">View full documentation ↗</a><a class="button secondary" href="writeups.html#oci-firewall">Read the firewall writeup</a></div>
+      </article>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div></footer>
+</body>
+</html>

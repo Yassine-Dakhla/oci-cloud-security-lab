@@ -3,167 +3,201 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ForgeSec — simple security checks, practical research, and cloud security projects." />
-  <meta name="theme-color" content="#07110d" />
-  <title>ForgeSec — Build secure. Stay secure.</title>
+  <meta name="description" content="ForgeSec helps small teams understand and monitor the security posture of their websites with clear, actionable checks." />
+  <title>ForgeSec — Website security, made clear</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="grid-bg" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="ForgeSec home">
-      <span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="tools.html">Tools</a>
-      <a href="projects.html">Projects</a>
-      <a href="writeups.html">Writeups</a>
-      <a href="about.html">About</a>
-    </nav>
-    <a class="nav-cta" href="tools.html">Run a scan</a>
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="ForgeSec home">
+        <span class="brand-symbol" aria-hidden="true"><span></span></span>
+        <span>ForgeSec</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="tools.html">Platform</a>
+        <a href="projects.html">Solutions</a>
+        <a href="writeups.html">Resources</a>
+        <a href="about.html">About</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="text-link desktop-only" href="writeups.html">Learn</a>
+        <a class="button small" href="#scan">Run a free check</a>
+      </div>
+    </div>
   </header>
 
   <main>
-    <section class="hero product-hero wrap">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="dot"></span> Security tools built in public</div>
-        <h1>Build secure.<br><span>Stay secure.</span></h1>
-        <p class="hero-text">ForgeSec turns technical website security signals into simple, useful answers. Check your HTTPS, security headers, DNS posture and more — then understand what to fix.</p>
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="pill"><span></span> Website security visibility for small teams</div>
+          <h1>Know what your website is <em>exposing.</em></h1>
+          <p class="hero-lead">ForgeSec turns common website security checks into a clear report you can actually act on — without enterprise complexity.</p>
 
-        <form class="scan-bar" id="home-scan-form">
-          <label class="sr-only" for="home-target">Website address</label>
-          <span class="scan-prefix">https://</span>
-          <input id="home-target" name="target" autocomplete="off" placeholder="yourwebsite.com" required />
-          <button type="submit">Scan website <span>→</span></button>
-        </form>
-        <p class="form-note"><span class="pulse"></span> Free demo scanner · no account required · active scanning backend coming next</p>
+          <form class="scan-bar" id="scan" data-scan-form>
+            <div class="scan-field">
+              <span class="scan-icon">◎</span>
+              <input type="text" name="target" placeholder="example.com" aria-label="Website to check" autocomplete="off" />
+            </div>
+            <button class="button" type="submit">Check website</button>
+          </form>
+          <p class="form-note">Free basic check · No account required · Only scan assets you own or are authorized to assess.</p>
 
-        <div class="hero-actions compact-actions">
-          <a class="text-link" href="projects.html">See how ForgeSec is built <span>↗</span></a>
-          <a class="text-link" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <div class="hero-proof">
+            <span>Checks include</span>
+            <b>TLS</b>
+            <b>Security headers</b>
+            <b>DNS</b>
+            <b>Redirects</b>
+          </div>
+        </div>
+
+        <div class="product-window" aria-label="ForgeSec report preview">
+          <div class="window-top">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>app.forgesec — security overview</span>
+            <span class="live-badge">Preview</span>
+          </div>
+          <div class="window-body">
+            <div class="dashboard-head">
+              <div>
+                <small>Security overview</small>
+                <h3>example.com</h3>
+              </div>
+              <div class="score-ring"><strong>82</strong><span>/100</span></div>
+            </div>
+
+            <div class="summary-row">
+              <div><span class="status-dot good"></span><p><b>7</b> passed</p></div>
+              <div><span class="status-dot warn"></span><p><b>2</b> warnings</p></div>
+              <div><span class="status-dot bad"></span><p><b>1</b> issue</p></div>
+            </div>
+
+            <div class="finding-list">
+              <div class="finding"><span class="check good">✓</span><div><b>HTTPS certificate</b><small>Valid and trusted</small></div><span class="tag success">Pass</span></div>
+              <div class="finding"><span class="check good">✓</span><div><b>HTTP → HTTPS</b><small>Redirect configured</small></div><span class="tag success">Pass</span></div>
+              <div class="finding"><span class="check warn">!</span><div><b>Content Security Policy</b><small>Header not detected</small></div><span class="tag warning">Review</span></div>
+              <div class="finding"><span class="check bad">×</span><div><b>HSTS</b><small>Strict transport policy missing</small></div><span class="tag danger">Issue</span></div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <aside class="scan-preview" aria-label="Security scan preview">
-        <div class="preview-head">
-          <div><span class="preview-kicker">FORGESEC SCAN</span><strong>example.com</strong></div>
-          <div class="score-ring"><b>82</b><span>/100</span></div>
-        </div>
-        <div class="result-row"><span><i class="result-icon pass">✓</i> HTTPS enabled</span><b class="pass-text">PASS</b></div>
-        <div class="result-row"><span><i class="result-icon pass">✓</i> Certificate valid</span><b class="pass-text">PASS</b></div>
-        <div class="result-row"><span><i class="result-icon warn">!</i> HSTS</span><b class="warn-text">MISSING</b></div>
-        <div class="result-row"><span><i class="result-icon warn">!</i> Content Security Policy</span><b class="warn-text">REVIEW</b></div>
-        <div class="result-row"><span><i class="result-icon pass">✓</i> X-Content-Type-Options</span><b class="pass-text">PASS</b></div>
-        <div class="preview-footer"><span>2 recommendations found</span><span>Demo result</span></div>
-      </aside>
     </section>
 
     <section class="trust-strip">
-      <div class="wrap trust-inner">
-        <span>Built with</span><b>Python</b><b>OCI</b><b>Linux</b><b>Docker</b><b>Nginx</b><b>TLS</b><b>Security research</b>
+      <div class="container trust-row">
+        <p>Designed around practical web security fundamentals</p>
+        <div><span>HTTPS / TLS</span><span>HTTP Headers</span><span>DNS Security</span><span>Availability</span></div>
       </div>
     </section>
 
-    <section class="section wrap" id="tools">
-      <div class="section-heading centered-heading">
-        <span>SECURITY TOOLS</span>
-        <h2>Understand what your website is exposing.</h2>
-        <p>ForgeSec is being built as a collection of focused checks that explain both the result and the remediation.</p>
-      </div>
-      <div class="tool-grid">
-        <a class="tool-card featured-tool" href="tools.html#website-scan">
-          <div class="tool-icon">⌁</div><span class="tool-state live">Demo ready</span>
-          <h3>Website Security Scan</h3>
-          <p>Combine HTTPS, certificate and security-header checks into one readable security score.</p>
-          <span class="card-link">Open scanner →</span>
-        </a>
-        <a class="tool-card" href="tools.html#headers">
-          <div class="tool-icon">{ }</div><span class="tool-state">Next</span>
-          <h3>Header Analyzer</h3>
-          <p>Identify missing browser security headers and understand why each one matters.</p>
-          <span class="card-link">View tool →</span>
-        </a>
-        <a class="tool-card" href="tools.html#tls">
-          <div class="tool-icon">◇</div><span class="tool-state">Planned</span>
-          <h3>TLS Inspector</h3>
-          <p>Inspect certificate validity, expiration, hostname coverage and basic HTTPS configuration.</p>
-          <span class="card-link">View roadmap →</span>
-        </a>
-        <a class="tool-card" href="tools.html#dns">
-          <div class="tool-icon">◎</div><span class="tool-state">Planned</span>
-          <h3>DNS Inspector</h3>
-          <p>Review DNS records and surface useful SPF, DMARC, CAA and nameserver information.</p>
-          <span class="card-link">View roadmap →</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section section-contrast">
-      <div class="wrap split-feature">
-        <div class="section-heading">
-          <span>WHY FORGESEC</span>
-          <h2>Security results shouldn't require a security team to understand.</h2>
-          <p>The long-term goal is simple: help developers, freelancers and small site owners see obvious security problems before they become bigger ones.</p>
-          <a class="button primary" href="tools.html">Explore the tools</a>
+    <section class="section">
+      <div class="container">
+        <div class="section-intro centered">
+          <span class="eyebrow">One clear security view</span>
+          <h2>Security signals without the noise.</h2>
+          <p>ForgeSec brings the checks website owners actually need into one understandable workflow.</p>
         </div>
-        <div class="principles">
-          <article><span>01</span><div><h3>Explain the finding</h3><p>Show what was detected in plain language instead of dumping raw scanner output.</p></div></article>
-          <article><span>02</span><div><h3>Explain the risk</h3><p>Describe why the configuration matters and what could go wrong.</p></div></article>
-          <article><span>03</span><div><h3>Show the fix</h3><p>Give focused remediation guidance the website owner can act on.</p></div></article>
+
+        <div class="feature-grid">
+          <article class="feature-card featured">
+            <div class="feature-icon blue">⌁</div>
+            <h3>Website Security Check</h3>
+            <p>Review HTTPS, redirects, security headers and other externally visible configuration in one report.</p>
+            <a href="tools.html">Explore the scanner <span>→</span></a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon violet">◫</div>
+            <h3>TLS Inspector</h3>
+            <p>Understand certificate validity, expiry and HTTPS configuration without digging through raw output.</p>
+            <a href="tools.html">See what it checks <span>→</span></a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon cyan">⌘</div>
+            <h3>Header Analyzer</h3>
+            <p>Find missing browser security headers and get plain-language remediation guidance.</p>
+            <a href="tools.html">View analyzer <span>→</span></a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon navy">◉</div>
+            <h3>DNS Security</h3>
+            <p>Surface useful DNS and email-security configuration such as SPF, DMARC and CAA.</p>
+            <a href="tools.html">Explore DNS checks <span>→</span></a>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section wrap">
-      <div class="section-heading row-heading">
-        <div><span>FEATURED PROJECT</span><h2>The infrastructure behind the idea.</h2></div>
-        <a class="text-link" href="projects.html">All projects →</a>
-      </div>
-      <article class="project-feature">
-        <div class="project-content">
-          <span class="project-tag">OCI CLOUD SECURITY LAB</span>
-          <h3>From an empty cloud account to a hardened internet-facing service.</h3>
-          <p>The first ForgeSec infrastructure project documents cloud networking, Linux hardening, layered firewalls, Docker isolation, Nginx reverse proxying and trusted HTTPS.</p>
-          <div class="project-pills"><span>OCI</span><span>Ubuntu 24.04</span><span>iptables</span><span>Docker</span><span>Nginx</span><span>Let's Encrypt</span></div>
-          <div class="hero-actions"><a class="button primary" href="projects.html">View case study</a><a class="button secondary" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">View repository ↗</a></div>
+    <section class="section soft-section">
+      <div class="container split-section">
+        <div>
+          <span class="eyebrow">Built for clarity</span>
+          <h2>From technical finding to useful next step.</h2>
+          <p class="section-copy">A security tool is only useful if someone knows what to do with the result. ForgeSec is designed around explanation, prioritization and remediation — not just raw scanner output.</p>
+          <ul class="benefit-list">
+            <li><span>01</span><div><b>Prioritized findings</b><p>Separate real issues from informational checks.</p></div></li>
+            <li><span>02</span><div><b>Plain-language context</b><p>Understand why a finding matters before changing anything.</p></div></li>
+            <li><span>03</span><div><b>Actionable remediation</b><p>Get a practical direction for fixing common configuration problems.</p></div></li>
+          </ul>
         </div>
-        <div class="architecture-panel">
-          <span class="architecture-label">REQUEST PATH</span>
-          <div class="arch-flow"><div>Internet</div><span>↓</span><div>OCI Security List</div><span>↓</span><div>Host iptables</div><span>↓</span><div>Nginx :443</div><span>↓</span><div class="active-node">Docker 127.0.0.1:8080</div></div>
+        <div class="report-card">
+          <div class="report-title"><div><small>Finding</small><h3>Strict-Transport-Security missing</h3></div><span class="severity medium">Medium</span></div>
+          <div class="report-block"><b>Why it matters</b><p>Without HSTS, a browser may attempt an insecure HTTP connection before being redirected to HTTPS.</p></div>
+          <div class="report-block"><b>Recommended action</b><p>After confirming HTTPS works correctly across the site, configure an appropriate Strict-Transport-Security response header.</p></div>
+          <div class="report-meta"><span>Category: Transport security</span><span>Check: HTTP headers</span></div>
         </div>
-      </article>
-    </section>
-
-    <section class="section wrap">
-      <div class="section-heading row-heading">
-        <div><span>RESEARCH & WRITEUPS</span><h2>Documenting what breaks — and why.</h2></div>
-        <a class="text-link" href="writeups.html">All writeups →</a>
-      </div>
-      <div class="writeup-grid">
-        <a class="writeup-card" href="writeups.html#oci-firewall"><span>Cloud Security · 6 min</span><h3>Why port 80 stayed filtered even after I opened it in OCI</h3><p>A real troubleshooting story involving OCI Security Lists, Ubuntu iptables and UFW.</p><b>Read writeup →</b></a>
-        <a class="writeup-card" href="writeups.html#docker-isolation"><span>Containers · 4 min</span><h3>Why I bound my Docker web service to 127.0.0.1</h3><p>Reducing direct exposure by putting the application behind a host reverse proxy.</p><b>Read writeup →</b></a>
-        <a class="writeup-card" href="writeups.html#ssh-hardening"><span>Linux · 5 min</span><h3>Hardening SSH without locking myself out</h3><p>Key-only authentication, root login restrictions and safe configuration testing.</p><b>Read writeup →</b></a>
       </div>
     </section>
 
-    <section class="builder-section">
-      <div class="wrap builder-inner">
-        <div class="builder-mark">YD</div>
-        <div><span class="eyebrow plain">BUILT BY YASSINE DAKHLA</span><h2>Learning cybersecurity by building real systems.</h2><p>ForgeSec is both a product experiment and a public record of my progress in cloud security, Linux, networking and application security.</p></div>
-        <a class="button secondary" href="about.html">About the builder</a>
+    <section class="section">
+      <div class="container">
+        <div class="section-intro">
+          <span class="eyebrow">Who it is for</span>
+          <h2>Useful security visibility for teams without a security department.</h2>
+        </div>
+        <div class="audience-grid">
+          <article><span>01</span><h3>Small businesses</h3><p>Understand the visible security posture of your website without reading scanner logs.</p></article>
+          <article><span>02</span><h3>Freelancers</h3><p>Run repeatable checks before handing a website over to a client.</p></article>
+          <article><span>03</span><h3>Agencies</h3><p>Add a simple security review to website maintenance and delivery workflows.</p></article>
+          <article><span>04</span><h3>Developers</h3><p>Catch common deployment and security-header mistakes after shipping.</p></article>
+        </div>
       </div>
     </section>
 
-    <section class="final-cta wrap">
-      <span class="eyebrow plain">FORGESEC</span><h2>Start with the signal.<br><span>Understand the risk.</span></h2><p>Run the demo today. The live scanning backend is the next milestone.</p><a class="button primary large-button" href="tools.html">Open security tools →</a>
+    <section class="section dark-section">
+      <div class="container dark-grid">
+        <div>
+          <span class="eyebrow light">Resources</span>
+          <h2>Learn what the checks actually mean.</h2>
+          <p>ForgeSec's resource library will publish practical web-security guides, configuration explainers and troubleshooting notes. It is also the part of the site designed to grow through search traffic.</p>
+          <a class="button light-button" href="writeups.html">Browse security resources</a>
+        </div>
+        <div class="resource-stack">
+          <a href="writeups.html"><span>Guide</span><b>Security headers: what each one actually does</b><i>→</i></a>
+          <a href="writeups.html"><span>Guide</span><b>How HTTPS certificates work and what can go wrong</b><i>→</i></a>
+          <a href="writeups.html"><span>Checklist</span><b>Website security checklist for small businesses</b><i>→</i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container cta-card">
+        <div><span class="eyebrow">Start simple</span><h2>See what your website is telling the internet.</h2><p>Run a basic ForgeSec check and turn technical signals into understandable next steps.</p></div>
+        <a class="button large" href="#scan">Check a website</a>
+      </div>
     </section>
   </main>
 
   <footer>
-    <div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
-    <div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div>
+    <div class="container footer-grid">
+      <div><a class="brand footer-brand" href="index.html"><span class="brand-symbol"><span></span></span><span>ForgeSec</span></a><p>Clear website security visibility for small teams.</p></div>
+      <div><b>Product</b><a href="tools.html">Platform</a><a href="tools.html">Website check</a><a href="tools.html">Monitoring</a></div>
+      <div><b>Company</b><a href="about.html">About</a><a href="projects.html">Solutions</a><a href="writeups.html">Resources</a></div>
+      <div><b>Resources</b><a href="writeups.html">Guides</a><a href="writeups.html">Checklists</a><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 ForgeSec</span><span>Security tooling in active development.</span></div>
   </footer>
-
   <script src="app.js"></script>
 </body>
 </html>

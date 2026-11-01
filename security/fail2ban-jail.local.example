@@ -1,0 +1,13 @@
+# Example Fail2Ban configuration used by the lab.
+# Copy to /etc/fail2ban/jail.local and validate with:
+# sudo fail2ban-client -t
+
+[DEFAULT]
+bantime = 10m
+findtime = 10m
+maxretry = 5
+
+[sshd]
+enabled = true
+port = ssh
+backend = systemd

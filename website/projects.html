@@ -3,100 +3,63 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ForgeSec projects — practical cloud and cybersecurity builds." />
-  <meta name="theme-color" content="#07110d" />
-  <title>Projects — ForgeSec</title>
+  <meta name="description" content="ForgeSec solutions for small businesses, freelancers, agencies and developers." />
+  <title>Solutions — ForgeSec</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="grid-bg" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a>
-    <nav class="desktop-nav"><a href="tools.html">Tools</a><a class="active" href="projects.html">Projects</a><a href="writeups.html">Writeups</a><a href="about.html">About</a></nav>
-    <a class="nav-cta" href="tools.html">Run a scan</a>
+    <div class="nav-shell">
+      <a class="brand" href="index.html"><span class="brand-symbol"><span></span></span><span>ForgeSec</span></a>
+      <nav class="desktop-nav"><a href="tools.html">Platform</a><a href="projects.html">Solutions</a><a href="writeups.html">Resources</a><a href="about.html">About</a></nav>
+      <div class="nav-actions"><a class="button small" href="tools.html#scanner">Run a free check</a></div>
+    </div>
   </header>
 
   <main>
-    <section class="page-hero wrap">
-      <div class="eyebrow"><span class="dot"></span> Practical builds</div>
-      <h1>Projects that prove<br><span class="accent">how the security works.</span></h1>
-      <p>ForgeSec projects document the architecture, hardening decisions, mistakes, verification steps and lessons learned — not just the final screenshot.</p>
-    </section>
-
-    <section class="section wrap">
-      <div class="project-grid">
-        <a class="content-card" href="#oci-cloud-lab"><span class="number">FEATURED / 01</span><h3>OCI Cloud Security Lab</h3><p>Internet-facing Ubuntu infrastructure with cloud networking, layered firewalling, Docker isolation, Nginx and trusted TLS.</p><span class="card-link">Read case study →</span></a>
-        <article class="content-card"><span class="number">NEXT / 02</span><h3>ForgeSec Scanner API</h3><p>A planned FastAPI backend that will power passive website-security checks and structured remediation results.</p><span class="card-link">In development</span></article>
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow">Solutions</span>
+        <h1>Security visibility that fits the way you work.</h1>
+        <p>ForgeSec is designed for website owners and small teams who need practical security feedback without adopting a heavyweight enterprise platform.</p>
       </div>
     </section>
 
-    <section class="case-study wrap" id="oci-cloud-lab">
-      <aside class="case-meta">
-        <span class="project-tag">OCI CLOUD SECURITY LAB</span>
-        <div><b>Status</b><br>Running</div>
-        <div><b>Platform</b><br>Oracle Cloud Infrastructure</div>
-        <div><b>OS</b><br>Ubuntu 24.04 ARM64</div>
-        <div><b>Compute</b><br>Ampere A1 Flex</div>
-        <div><b>Application</b><br>Docker + Nginx</div>
-        <div><b>Security</b><br>SSH · iptables · Fail2Ban · TLS</div>
-      </aside>
-      <article class="case-body">
-        <h2>Building an internet-facing service with defense in depth.</h2>
-        <p>The goal was not simply to make a webpage load. The project was built to understand what happens between an internet request and the application, then reduce unnecessary exposure at every layer.</p>
-
-        <h3>Architecture</h3>
-        <pre>Internet
-   │
-   ▼
-OCI Security List
-   │
-   ▼
-Ubuntu iptables
-   │
-   ├── TCP 22  → OpenSSH
-   ├── TCP 80  → HTTP redirect / ACME
-   └── TCP 443 → Host Nginx
-                    │
-                    ▼
-              127.0.0.1:8080
-                    │
-                    ▼
-               Docker Nginx</pre>
-
-        <h3>Cloud networking</h3>
-        <p>The environment uses a dedicated VCN with a <code>10.0.0.0/16</code> address range, a public subnet for the current server and a private subnet reserved for future internal services. OCI Security Lists form the first ingress control layer.</p>
-
-        <h3>Linux hardening</h3>
-        <ul>
-          <li>SSH public-key authentication enabled.</li>
-          <li>Password authentication disabled.</li>
-          <li>Direct root SSH login disabled.</li>
-          <li>Unused <code>rpcbind</code> service disabled after confirming no NFS dependency.</li>
-          <li>Automatic security updates enabled.</li>
-          <li>Fail2Ban SSH jail enabled.</li>
-        </ul>
-
-        <h3>Container isolation</h3>
-        <p>The Docker web container is published only as <code>127.0.0.1:8080:80</code>. This means the application port is not intentionally reachable directly from the internet. Public traffic goes through the host Nginx reverse proxy instead.</p>
-
-        <h3>TLS</h3>
-        <p>HTTPS is terminated by host Nginx using a Let's Encrypt certificate. Certificate renewal was tested successfully with Certbot's dry-run workflow before being documented as complete.</p>
-
-        <h3>External validation</h3>
-        <pre>22/tcp    open       ssh
-80/tcp    open       http
-443/tcp   open       https
-8080/tcp  filtered   http-proxy</pre>
-        <p>The important result is that the intended public services are reachable while the Docker application port remains filtered externally.</p>
-
-        <h3>What made this project useful</h3>
-        <p>The strongest lesson came from troubleshooting. Port 80 remained filtered even after it was allowed in OCI and Nginx was listening locally. Inspecting the host rules revealed an OCI Ubuntu iptables reject rule taking effect before UFW-managed chains. The fix required understanding rule order rather than simply adding another firewall rule.</p>
-
-        <div class="hero-actions"><a class="button primary" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">View full documentation ↗</a><a class="button secondary" href="writeups.html#oci-firewall">Read the firewall writeup</a></div>
-      </article>
+    <section class="section">
+      <div class="container">
+        <div class="solution-grid">
+          <article class="solution-card"><span class="eyebrow">Small business</span><h3>Understand your website's basic security posture.</h3><p>Get a concise view of common configuration issues and clear guidance on what deserves attention first.</p></article>
+          <article class="solution-card"><span class="eyebrow">Freelancers</span><h3>Add a repeatable security check before handoff.</h3><p>Use the same checklist for every client site instead of relying on memory or scattered browser tools.</p></article>
+          <article class="solution-card"><span class="eyebrow">Agencies</span><h3>Make security part of website maintenance.</h3><p>Review client-facing configuration and, later, monitor changes across multiple managed websites.</p></article>
+          <article class="solution-card"><span class="eyebrow">Developers</span><h3>Catch deployment mistakes after release.</h3><p>Spot missing headers, certificate problems and basic public-facing configuration issues after shipping.</p></article>
+          <article class="solution-card"><span class="eyebrow">Future capability</span><h3>Continuous website monitoring.</h3><p>ForgeSec's roadmap includes uptime history, certificate expiry alerts and configuration-change notifications.</p></article>
+          <article class="solution-card"><span class="eyebrow">Future capability</span><h3>Clear client-ready reporting.</h3><p>Turn technical findings into understandable reports that explain severity, impact and recommended next steps.</p></article>
+        </div>
+      </div>
     </section>
+
+    <section class="section soft-section">
+      <div class="container split-section">
+        <div><span class="eyebrow">A deliberate scope</span><h2>Focused on website security basics, not pretending to be everything.</h2><p class="section-copy">ForgeSec starts with externally visible website configuration because it is understandable, useful and can be checked safely. Deeper vulnerability assessment belongs in specialized workflows with proper authorization and context.</p></div>
+        <div class="report-card">
+          <div class="report-title"><div><small>ForgeSec principle</small><h3>Useful before complex</h3></div><span class="severity medium">Focused</span></div>
+          <div class="report-block"><b>What ForgeSec should do well</b><p>Explain common website-security signals, prioritize findings and help people take the next sensible action.</p></div>
+          <div class="report-block"><b>What ForgeSec should not pretend to be</b><p>A replacement for a professional penetration test, source-code review or enterprise vulnerability-management program.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section"><div class="container cta-card"><div><span class="eyebrow">Start with visibility</span><h2>Check the basics before they become surprises.</h2><p>Use ForgeSec's website-security interface to see how the product is being built.</p></div><a class="button large" href="tools.html#scanner">Open the website check</a></div></section>
   </main>
 
-  <footer><div class="wrap footer-grid"><div><a class="brand footer-brand" href="index.html"><span class="forge-mark">F</span><span>Forge<span class="accent">Sec</span></span></a><p>Build secure. Stay secure.</p></div><div><b>Product</b><a href="tools.html">Tools</a><a href="projects.html">Projects</a></div><div><b>Research</b><a href="writeups.html">Writeups</a><a href="about.html">About</a></div><div><b>Source</b><a href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">GitHub ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 ForgeSec / Yassine Dakhla</span><span>Built on Oracle Cloud Infrastructure</span></div></footer>
+  <footer>
+    <div class="container footer-grid">
+      <div><a class="brand footer-brand" href="index.html"><span class="brand-symbol"><span></span></span><span>ForgeSec</span></a><p>Clear website security visibility for small teams.</p></div>
+      <div><b>Product</b><a href="tools.html">Platform</a><a href="tools.html">Website check</a></div>
+      <div><b>Company</b><a href="about.html">About</a><a href="projects.html">Solutions</a></div>
+      <div><b>Resources</b><a href="writeups.html">Guides</a><a href="writeups.html">Checklists</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 ForgeSec</span><span>Security tooling in active development.</span></div>
+  </footer>
 </body>
 </html>

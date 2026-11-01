@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Cybersecurity portfolio and cloud security lab built on Oracle Cloud Infrastructure." />
+  <title>Yassine Dakhla | Cybersecurity Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark">YD</span>
+      <span>Yassine Dakhla</span>
+    </a>
+    <nav>
+      <a href="#lab">Lab</a>
+      <a href="#skills">Skills</a>
+      <a href="#tools">Tools</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> Cybersecurity student · building in public</div>
+        <h1>Building secure systems.<br><span>Learning by shipping.</span></h1>
+        <p class="hero-text">
+          I build practical cloud and cybersecurity projects to understand how systems are designed,
+          exposed, hardened, monitored and defended — not just how they look in a textbook.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">View the project</a>
+          <a class="button secondary" href="#lab">Explore the lab</a>
+        </div>
+        <div class="stack" aria-label="Technology stack">
+          <span>OCI</span><span>Ubuntu</span><span>Docker</span><span>Nginx</span><span>TLS</span><span>Fail2Ban</span>
+        </div>
+      </div>
+
+      <aside class="terminal-card" aria-label="Lab status">
+        <div class="terminal-top"><span></span><span></span><span></span><small>cyberlab-server</small></div>
+        <div class="terminal-body">
+          <p><b>$</b> security-status</p>
+          <p><em>✓</em> SSH key authentication</p>
+          <p><em>✓</em> Password login disabled</p>
+          <p><em>✓</em> Host firewall enforced</p>
+          <p><em>✓</em> Fail2Ban protecting SSH</p>
+          <p><em>✓</em> Docker service isolated</p>
+          <p><em>✓</em> HTTPS enabled</p>
+          <p><b>$</b> exposure</p>
+          <p><span class="muted">public</span> 22 / 80 / 443</p>
+          <p><span class="muted">private</span> 127.0.0.1:8080</p>
+          <p class="cursor">▌</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="metrics wrap">
+      <article><strong>3</strong><span>intentionally public ports</span></article>
+      <article><strong>1</strong><span>private container service</span></article>
+      <article><strong>2</strong><span>firewall layers</span></article>
+      <article><strong>TLS</strong><span>automated certificate renewal</span></article>
+    </section>
+
+    <section id="lab" class="section wrap">
+      <div class="section-heading">
+        <span>01 / FEATURED PROJECT</span>
+        <h2>OCI Cloud Security Lab</h2>
+        <p>A real internet-facing Linux server designed with defense in depth.</p>
+      </div>
+
+      <div class="architecture">
+        <div class="arch-node accent">Internet</div><div class="arrow">→</div>
+        <div class="arch-node">OCI Security List</div><div class="arrow">→</div>
+        <div class="arch-node">iptables</div><div class="arrow">→</div>
+        <div class="arch-node">Nginx :443</div><div class="arrow">→</div>
+        <div class="arch-node accent">Docker :8080</div>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span class="card-number">01</span>
+          <h3>Cloud networking</h3>
+          <p>VCN design, public and private subnets, routing, Internet Gateway and OCI Security Lists.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">02</span>
+          <h3>Linux hardening</h3>
+          <p>SSH keys only, root login disabled, unnecessary RPC service removed, unattended security updates and Fail2Ban.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">03</span>
+          <h3>Container isolation</h3>
+          <p>The application is bound to localhost and exposed only through a hardened host Nginx reverse proxy.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">04</span>
+          <h3>HTTPS & validation</h3>
+          <p>Let's Encrypt TLS, automatic renewal testing, and external Nmap validation of the intended attack surface.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section wrap split">
+      <div class="section-heading">
+        <span>02 / WHAT I'M BUILDING</span>
+        <h2>Practical security skills</h2>
+      </div>
+      <div class="skill-list">
+        <div><b>Cloud security</b><span>OCI · VCN · Security Lists · Linux hosts</span></div>
+        <div><b>Network security</b><span>Nmap · exposure analysis · firewall policy</span></div>
+        <div><b>Linux</b><span>Ubuntu · systemd · SSH · iptables · logs</span></div>
+        <div><b>Automation</b><span>Python · Bash · PowerShell</span></div>
+        <div><b>Containers</b><span>Docker · Nginx · reverse proxying</span></div>
+      </div>
+    </section>
+
+    <section id="tools" class="section wrap">
+      <div class="section-heading">
+        <span>03 / FUTURE PRODUCT DIRECTION</span>
+        <h2>Security tools I want to ship</h2>
+        <p>This site is intentionally structured so the portfolio can grow into useful security tooling later.</p>
+      </div>
+      <div class="cards product-cards">
+        <article class="card">
+          <span class="status">Planned</span>
+          <h3>Website Security Check</h3>
+          <p>Check TLS, security headers and basic configuration, then generate a simple remediation report.</p>
+        </article>
+        <article class="card">
+          <span class="status">Planned</span>
+          <h3>Uptime + TLS Monitor</h3>
+          <p>Monitor a website and alert its owner about downtime or certificate problems.</p>
+        </article>
+        <article class="card">
+          <span class="status">Planned</span>
+          <h3>Security Report Generator</h3>
+          <p>Turn technical checks into a clean report a small business owner can actually understand.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="cta wrap">
+      <div>
+        <span>BUILDING · LEARNING · IMPROVING</span>
+        <h2>Follow the project as it grows.</h2>
+        <p>The complete architecture, hardening steps, troubleshooting notes and evidence are documented on GitHub.</p>
+      </div>
+      <a class="button primary" href="https://github.com/Yassine-Dakhla/oci-cloud-security-lab" target="_blank" rel="noreferrer">Open GitHub repository</a>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© 2026 Yassine Dakhla</span>
+    <span>Built on OCI · Secured with defense in depth</span>
+  </footer>
+</body>
+</html>

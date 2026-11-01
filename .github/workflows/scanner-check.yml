@@ -1,0 +1,31 @@
+name: ForgeSec scanner check
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/scanner-check.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Compile scanner
+        run: python -m py_compile backend/main.py
+
+      - name: Import FastAPI app
+        run: python -c "from backend.main import app; print(app.title)"

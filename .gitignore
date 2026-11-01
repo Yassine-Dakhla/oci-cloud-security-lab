@@ -1,0 +1,48 @@
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.csr
+*.pubkey
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+.env
+.env.*
+!.env.example
+
+# Terraform secrets/state
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!*.tfvars.example
+
+# OCI credentials
+.oci/
+oci_api_key.pem
+
+# Certbot / Let's Encrypt private material
+letsencrypt/
+archive/
+live/
+renewal/
+
+# Logs
+*.log
+logs/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+*~
